@@ -1,0 +1,8 @@
+*.DS_Store
+*.vs
+*.vscode
+*.log
+*.db
+bin
+obj
+
