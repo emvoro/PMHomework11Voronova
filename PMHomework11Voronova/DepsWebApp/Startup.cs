@@ -5,7 +5,6 @@ using System;
 using DepsWebApp.Clients;
 using DepsWebApp.Options;
 using DepsWebApp.Services;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;

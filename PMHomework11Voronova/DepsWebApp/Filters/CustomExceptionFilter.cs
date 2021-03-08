@@ -14,7 +14,7 @@ namespace DepsWebApp.Filters
     public class CustomExceptionFilter : ExceptionFilterAttribute, IAsyncExceptionFilter
     {
         /// <summary>
-        /// Method that handle an exception.
+        /// Exception handling method.
         /// </summary>
         /// <param name="context">Exception Context.</param>
         public Task OnExceptionAsync(ExceptionContext context)
@@ -25,6 +25,10 @@ namespace DepsWebApp.Filters
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Method that gets custom exception code.
+        /// </summary>
+        /// <param name="ex">Exception.</param>
         public int GetExceptionCode(Exception ex)
         {
             var exception = ex.GetType();

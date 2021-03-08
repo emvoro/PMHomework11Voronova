@@ -1,18 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.IO;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net.Mime;
 using System.Text;
+using System.Net.Mime;
 using System.Threading.Tasks;
 
 namespace DepsWebApp.Middlewares
 {
     /// <summary>
-    /// Middleware that logs an information about request and response
+    /// Middleware for logging raw data information as formed request and response.
     /// </summary>
     public class LoggerMiddleware
     {
@@ -21,7 +18,7 @@ namespace DepsWebApp.Middlewares
         private readonly ILogger<LoggerMiddleware> _logger;
 
         /// <summary>
-        /// Constructor of logging middleware.
+        /// Logger middleware construct.
         /// </summary>
         /// <param name="next">Request delegate.</param>
         /// <param name="logger">Logger.</param>
@@ -32,8 +29,7 @@ namespace DepsWebApp.Middlewares
         }
 
         /// <summary>
-        /// Method that invoke a middleware.
-        /// Loggs a request and response.
+        /// Method to invoke the middleware to log request and response data.
         /// </summary>
         /// <param name="context">Context.</param>
         /// <returns>Task.</returns>
@@ -50,9 +46,6 @@ namespace DepsWebApp.Middlewares
             context.Response.Body = responseBody;
 
             await _next(context);
-
-            var statusCode = context.Response.StatusCode;
-            var body = await ObtainResponseBody(context);
             
             _logger.LogInformation($"\n - Response -\n" +
                                    $" Path : {context.Request.Path}\n" +
@@ -64,10 +57,10 @@ namespace DepsWebApp.Middlewares
         }
 
         /// <summary>
-        /// Read a request body via stream reader.
+        /// Method to obtain the request body with stream reader.
         /// </summary>
-        /// <param name="request">A Request.</param>
-        /// <returns>Request body as string.</returns>
+        /// <param name="request">HttpRequest.</param>
+        /// <returns>Request body string.</returns>
         private static async Task<string> ObtainRequestBody(HttpRequest request)
         {
             if (request.Body == null)
@@ -87,10 +80,10 @@ namespace DepsWebApp.Middlewares
         }
 
         /// <summary>
-        /// Read a response body via stream reader.
+        /// Method to obtain the response body with stream reader.
         /// </summary>
-        /// <param name="context">The context.</param>
-        /// <returns>Response body as string.</returns>
+        /// <param name="context">HttpContext.</param>
+        /// <returns>Response body string.</returns>
         private static async Task<string> ObtainResponseBody(HttpContext context)
         {
             var response = context.Response;
@@ -107,9 +100,9 @@ namespace DepsWebApp.Middlewares
 
 
         /// <summary>
-        /// Get encoding from content type.
+        /// Method that gets encoding from content type.
         /// </summary>
-        /// <param name="content">Content type as string.</param>
+        /// <param name="content">Content type string.</param>
         /// <returns>Encoding.</returns>
         private static Encoding GetEncodingFromContentType(string content)
         {
